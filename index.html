@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Haiku questionnaire</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Haiku Evaluation — Sapienza Wizard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="logo-img" alt="Sapienza logo" src="sapienza logo.png">
+      <!-- app title now i18n -->
+      <span class="title" data-i18n="appTitle">Haiku Evaluation Questionnaire — Human vs AI</span>
+    </div>
+    <div class="topbar-actions">
+      <div class="lang-switch">
+        <!-- language buttons now i18n -->
+        <button id="lang-en" class="chip chip--active" data-i18n="langEnglish">English</button>
+        <button id="lang-ja" class="chip" data-i18n="langJapanese">日本語</button>
+      </div>
+      <button id="exportBtn" class="btn btn--primary btn--sm" data-i18n="export">Export JSON</button>
+    </div>
+  </header>
+
+  <!-- stepper -->
+  <div class="progress-wrap">
+    <div class="progress">
+      <div class="progress-bar" id="progressBar" style="width: 14.3%;"></div>
+    </div>
+    <div class="steps" id="stepsLabels">
+      <span class="step active" data-i18n="step1">1. Purpose</span>
+      <span class="step" data-i18n="step2">2. Consent</span>
+      <span class="step" data-i18n="step3">3. Background</span>
+      <span class="step" data-i18n="step4">4. Instructions</span>
+      <span class="step" data-i18n="step5">5. Haiku</span>
+      <span class="step" data-i18n="step6">6. Feedback</span>
+      <span class="step" data-i18n="step7">7. Done</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="wizard-viewport">
+      <!-- STEP 1: Purpose -->
+      <section class="card page" data-step="0">
+        <h1 data-i18n="headingPurpose">Purpose</h1>
+        <p data-i18n="purposeText">
+          The purpose of this study is to evaluate the creative writing of existing AI systems when tasked to generate haiku. For this questionnaire, you are tasked with rating randomly selected haiku which are either real or AI-generated.
+        </p>
+        <label class="checkbox" style="margin-top: 12px;">
+          <input type="checkbox" id="purposeAck">
+          <span data-i18n="purposeAckText">I have read the purpose and wish to continue.</span>
+        </label>
+      </section>
+
+      <!-- STEP 2: Participation & Consent -->
+      <section class="card page hidden" data-step="1">
+        <h2 data-i18n="headingConsent">Participation &amp; Consent</h2>
+        <ul class="bullets">
+          <li>
+            <span data-i18n="estimatedTime">Estimated time:</span>
+            <span id="estimatedTime" class="inline-static">~10–15 minutes</span>
+          </li>
+          <li data-i18n="anonUse">Responses are anonymous and used only for research.</li>
+          <li data-i18n="stopAnytime">You may stop at any time.</li>
+        </ul>
+        <div class="grid">
+          <label class="stack">
+            <span data-i18n="date">Date</span>
+            <input type="date" id="dateField">
+          </label>
+          <label class="stack">
+            <span data-i18n="university">University name</span>
+            <input type="text" id="university" placeholder="Sapienza Università di Roma">
+          </label>
+        </div>
+        <label class="checkbox">
+          <input type="checkbox" id="consent">
+          <span data-i18n="consentText">I have read the information and consent to participate.</span>
+        </label>
+      </section>
+
+      <!-- STEP 3: Background -->
+      <section class="card page hidden" data-step="2">
+        <h2 data-i18n="headingBackground">Background</h2>
+
+        <label class="stack">
+          <span data-i18n="yearProgram">Year &amp; program</span>
+          <input type="text" id="yearProgram">
+        </label>
+
+        <div class="field-group">
+          <div class="field-label" data-i18n="jpProficiency">Japanese proficiency (JLPT or equivalent)</div>
+          <div class="chips" id="jlptGroup">
+            <label class="chip"><input type="radio" name="jlpt" value="Mother tongue"> <span data-i18n="jlptNative">Mother tongue</span></label>
+            <label class="chip"><input type="radio" name="jlpt" value="N1"> N1</label>
+            <label class="chip"><input type="radio" name="jlpt" value="N2"> N2</label>
+            <label class="chip"><input type="radio" name="jlpt" value="N3"> N3</label>
+            <label class="chip"><input type="radio" name="jlpt" value="N4"> N4</label>
+            <label class="chip"><input type="radio" name="jlpt" value="N5"> N5</label>
+            <label class="chip"><input type="radio" name="jlpt" value="None/Unknown"> <span data-i18n="jlptNone">None</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label" data-i18n="haikuExperience">Haiku experience</div>
+          <div class="subgrid subgrid--stack">
+            <div>
+              <div class="sub-label" data-i18n="readingFreq">Reading frequency</div>
+              <div class="chips">
+                <label class="chip"><input name="reading" type="radio" value="Almost daily"> <span data-i18n="almostDaily">Almost daily</span></label>
+                <label class="chip"><input name="reading" type="radio" value="1-2/week"> <span data-i18n="oneTwoPerWeek">1–2/week</span></label>
+                <label class="chip"><input name="reading" type="radio" value="A few/month"> <span data-i18n="fewPerMonth">A few/month</span></label>
+                <label class="chip"><input name="reading" type="radio" value="Rarely"> <span data-i18n="rarely">Rarely</span></label>
+              </div>
+            </div>
+            <div>
+              <div class="sub-label" data-i18n="composition">Composition</div>
+              <div class="chips">
+                <label class="chip"><input name="composition" type="radio" value="Often"> <span data-i18n="often">Often</span></label>
+                <label class="chip"><input name="composition" type="radio" value="Sometimes"> <span data-i18n="sometimes">Sometimes</span></label>
+                <label class="chip"><input name="composition" type="radio" value="Rarely"> <span data-i18n="rarely">Rarely</span></label>
+                <label class="chip"><input name="composition" type="radio" value="Never"> <span data-i18n="never">Never</span></label>
+              </div>
+            </div>
+            <div>
+              <div class="sub-label" data-i18n="kukaiClub">Kukai/club participation</div>
+              <div class="chips">
+                <label class="chip"><input name="kukai" type="radio" value="Yes"> <span data-i18n="yes">Yes</span></label>
+                <label class="chip"><input name="kukai" type="radio" value="No"> <span data-i18n="no">No</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label" data-i18n="familiarity">Familiarity with key elements (self-rating)</div>
+          <div class="subgrid">
+            <div>
+              <div class="sub-label" data-i18n="kigoLabel">Kigo (season word)</div>
+              <div class="chips">
+                <label class="chip"><input name="kigoFam" type="radio" value="High"> <span data-i18n="high">High</span></label>
+                <label class="chip"><input name="kigoFam" type="radio" value="Medium"> <span data-i18n="medium">Medium</span></label>
+                <label class="chip"><input name="kigoFam" type="radio" value="Low"> <span data-i18n="low">Low</span></label>
+              </div>
+            </div>
+            <div>
+              <div class="sub-label" data-i18n="kirejiLabel">Kireji (cutting word)</div>
+              <div class="chips">
+                <label class="chip"><input name="kirejiFam" type="radio" value="High"> <span data-i18n="high">High</span></label>
+                <label class="chip"><input name="kirejiFam" type="radio" value="Medium"> <span data-i18n="medium">Medium</span></label>
+                <label class="chip"><input name="kirejiFam" type="radio" value="Low"> <span data-i18n="low">Low</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 4: Instructions -->
+      <section class="card page hidden" data-step="3">
+        <h2 data-i18n="headingInstructions">Instructions</h2>
+        <ul class="bullets">
+          <li>
+            <span data-i18n="instr1a">You will see</span>
+            <strong id="haikuTotal">1</strong>
+            <span data-i18n="instr1b">haiku in random order (a mix of human and AI).</span>
+          </li>
+          <li data-i18n="instr2"><b>Do not use the internet or dictionaries</b> while answering. Proceed in order.</li>
+          <li data-i18n="instr3">If a theme is specified, also rate whether each haiku fits the theme.</li>
+          <li data-i18n="instr4">There are no right answers; please answer honestly and consistently.</li>
+        </ul>
+        <label class="stack">
+          <span data-i18n="themeIfAny">Theme (if any)</span>
+          <input type="text" id="theme">
+        </label>
+      </section>
+
+      <!-- STEP 5: Haiku blocks (rendered by JS) -->
+      <section id="haikuBlocks" class="card page hidden" data-step="4">
+        <h2 data-i18n="perHaiku">Per-Haiku Evaluation</h2>
+      </section>
+
+      <!-- STEP 6: Overall feedback -->
+      <section class="card page hidden" data-step="5">
+        <h2 data-i18n="headingOverall">Overall feedback (optional)</h2>
+        <label class="stack">
+          <span data-i18n="cuesHelped">What cues helped you distinguish AI vs human?</span>
+          <textarea id="cues" rows="3"></textarea>
+        </label>
+        <label class="stack">
+          <span data-i18n="hardItems">Which items were hard to rate, and why?</span>
+          <textarea id="hard" rows="3"></textarea>
+        </label>
+      </section>
+
+      <!-- STEP 7: Done / Thank you -->
+      <section class="card page hidden" data-step="6">
+        <h2 data-i18n="thanks">Thank you for your time and participation.</h2>
+        <p class="muted" data-i18n="doneHint">You may now close this page after exporting your answer in JSON format by cliking on the "Export JSON" button on your top right.</p>
+      </section>
+    </div>
+
+    <!-- nav -->
+    <div class="wizard-nav">
+      <button class="btn btn--sm" id="backBtn" data-i18n="backLabel">◀ Back</button>
+      <button class="btn btn--primary btn--sm" id="nextBtn" data-i18n="nextLabel">Next ▶</button>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
